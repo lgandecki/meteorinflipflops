@@ -2,22 +2,37 @@ import React from 'react';
 import {render} from 'react-dom';
 import {Link} from 'react-router'
 
-const channels = [{name: 'general'}, {name: 'foobar'}];
+import {graphql} from 'react-apollo';
+import gql from 'graphql-tag';
 
-export default class ChannelList extends React.Component {
+class ChannelList extends React.Component {
     render() {
-        console.log("channel list", this.props.params.channelName);
         return <div className="ChannelList">
             <div className="left">
-                {channels.map((channel) => {
-                    return (<Link key={channel.name} to={`/channel/${channel.name}`} activeClassName="active" className="ChannelName">{channel.name}</Link>);
+                <Link to="/createChannel" className="ChannelName">+</Link>
+                {this.props.data.loading
+                    ? <div>loading...</div>
+                    : this.props.data.Channels.map((channel) => {
+                        return (<Link key={channel.name} to={`/channel/${channel.name}`} activeClassName="active"
+                                      className="ChannelName">{channel.name}</Link>);
 
-                })}
+                    })}
             </div>
             <div className="right">{this.props.children}</div>
         </div>
     }
 }
 
+const query = gql`
+    query ChannelList {
+        Channels {
+            name
+        }
+    }
+`;
+
+export default graphql(query, {
+    options: { pollInterval: 1000 },
+})(ChannelList)
 
 // {`/channel/${channel.name}`}

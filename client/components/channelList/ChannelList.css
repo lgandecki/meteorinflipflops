@@ -2,13 +2,14 @@
     display:flex;
     /*justify-content:flex-start;*/
     flex-grow:1;
-
+    overflow:hidden;
 }
 .ChannelList .left {
     width:20%;
     min-height:100vh;
     background:purple;
     padding-right:1rem;
+
 }
 .ChannelList .right {
     width:80%;

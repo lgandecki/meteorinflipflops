@@ -1,17 +1,41 @@
 import React from 'react';
 import {render} from 'react-dom';
 import ChannelMessage from './Message.jsx';
-const messages = [{handle: 'jaapm', message: "hello world!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}, {handle: 'derick', message: "hello man!"}];
 
-export default class ChannelMessages extends React.Component {
+
+import {graphql} from 'react-apollo';
+import gql from 'graphql-tag';
+
+class ChannelMessages extends React.Component {
     render() {
-        return <div className="ChannelMessages">
-            {messages.map((message, index) => {
-                    return (
-                        <ChannelMessage  key={index} handle={message.handle} text={message.message}/>
-                    )
-                }
-            )}
-        </div>
+        console.log("this.props.data", this.props.data);
+        if (this.props.data.loading) {
+            return <p>loading...</p>
+        }
+        else {
+            return <div className="ChannelMessages">
+                {this.props.data.Channel.messages.map((message, index) => {
+                        return (
+                            <ChannelMessage key={index} handle={message.handle} text={message.message}/>
+                        )
+                    }
+                )}
+            </div>
+        }
     }
 }
+
+
+const query = gql`
+    query ($name: String!){
+        Channel(name:$name) {
+            messages{
+                handle, message
+            }
+        }
+    }
+`;
+
+export default graphql(query, {
+    options: ({channelName}) => ({variables: {name: channelName}}),
+})(ChannelMessages)
