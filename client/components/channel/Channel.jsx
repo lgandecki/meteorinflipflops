@@ -1,12 +1,10 @@
 import React from 'react';
 import {render} from 'react-dom';
-import ChannelMessages from './ChannelMessages';
+import ChannelMessages from './ChannelMessages.jsx';
 
-export default class ChannelList extends React.Component {
+export default class Channel extends React.Component {
     render() {
-        return <div>
-            <ChannelMessages/>
-        </div>
+        return <ChannelMessages/>
     }
 }
 

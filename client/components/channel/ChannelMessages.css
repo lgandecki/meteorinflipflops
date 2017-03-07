@@ -1,0 +1,10 @@
+.ChannelMessages{
+    display:flex;
+    flex-direction:column;
+    padding-left:2rem;
+    height:100vh;
+    overflow-y:scroll;
+}
+.ChannelMessages:first-child{
+    margin-top:auto;
+}

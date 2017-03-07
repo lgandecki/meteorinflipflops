@@ -1,11 +1,13 @@
 import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
-import App from './components/root/App.jsx'
+import routes from './components/Routes';
 
 Meteor.startup(() => {
     render(
-        <App />,
+        <div>
+            {routes}
+        </div>,
         document.getElementById('root'),
     );
 });

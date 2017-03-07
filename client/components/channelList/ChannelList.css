@@ -1,0 +1,38 @@
+.ChannelList {
+    display:flex;
+    /*justify-content:flex-start;*/
+    flex-grow:1;
+
+}
+.ChannelList .left {
+    width:20%;
+    min-height:100vh;
+    background:purple;
+    padding-right:1rem;
+}
+.ChannelList .right {
+    width:80%;
+    min-height:100vh;
+}
+.ChannelList .left .ChannelName {
+    color: #AB9BA9;
+    display: block;
+    height: 1.5rem;
+    padding: 0 .25rem 0 1rem;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    background-clip: padding-box;
+    text-decoration: none!important;
+    width: 100%;
+    text-align: left;
+}
+
+.ChannelList .left .ChannelName.active {
+    background: #5f9489;
+    color: white;
+}
+.ChannelList .channel:hover {
+    background: #3c323b;
+}
