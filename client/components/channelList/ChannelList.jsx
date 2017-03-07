@@ -32,7 +32,7 @@ const query = gql`
 `;
 
 export default graphql(query, {
-    options: { pollInterval: 1000 },
+    options: { pollInterval: 300000 },
 })(ChannelList)
 
 // {`/channel/${channel.name}`}

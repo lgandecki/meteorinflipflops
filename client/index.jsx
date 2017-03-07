@@ -6,12 +6,26 @@ import routes from './components/Routes';
 import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+
+
 const apolloClient = new ApolloClient();
 
+const store = createStore(
+    combineReducers({
+        apollo: apolloClient.reducer(),
+    }),
+    {}, // initial state
+    compose(
+        applyMiddleware(apolloClient.middleware()),
+        // If you are using the devToolsExtension, you can add it here also
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    )
+);
 
 Meteor.startup(() => {
     render(
-        <ApolloProvider client={apolloClient}>
+        <ApolloProvider store={store} client={apolloClient}>
         <div>
             {routes}
         </div>

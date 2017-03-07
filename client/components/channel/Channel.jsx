@@ -8,7 +8,7 @@ export default class Channel extends React.Component {
         return (
             <div>
                 <ChannelMessages channelName={this.props.params.channelName}/>
-                <ChannelMessageForm/>
+                <ChannelMessageForm channelName={this.props.params.channelName}/>
             </div>
             )
     }

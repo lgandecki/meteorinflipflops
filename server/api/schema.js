@@ -1,6 +1,5 @@
-function gql(schema) {
-    return schema;
-}
+const gql = schema => schema;
+
 export const typeDefs = gql`
     type Message {
         handle: String!,

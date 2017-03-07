@@ -27,7 +27,7 @@ class ChannelMessages extends React.Component {
 
 
 const query = gql`
-    query ($name: String!){
+    query ChannelMessages($name: String!){
         Channel(name:$name) {
             messages{
                 handle, message
