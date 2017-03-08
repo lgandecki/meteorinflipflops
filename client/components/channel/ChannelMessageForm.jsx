@@ -7,7 +7,8 @@ class ChannelMessagesForm extends React.Component {
 
     onSubmit(event) {
         event.preventDefault();
-        this.props.submit({variables: {channelName: this.props.channelName, handle:"someone", message:this.refs.message.value}})
+        const name = Meteor.user().profile.name;
+        this.props.submit({variables: {channelName: this.props.channelName, handle:name, message:this.refs.message.value}})
         this.refs.message.value = '';
     }
 

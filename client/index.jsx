@@ -6,7 +6,7 @@ import Account from './components/accounts/account.jsx';
 
 import ApolloClient, {createNetworkInterface} from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
-import {meteorClientConfig} from 'meteor/apollo';
+import {meteorClientConfig, createMeteorNetworkInterface} from 'meteor/apollo';
 
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
@@ -15,25 +15,14 @@ import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-trans
 
 const wsClient = new SubscriptionClient('ws://localhost:8080');
 
-
-const networkInterface = createNetworkInterface({
-    uri: '/graphql',
-    opts: {
-        credentials: 'same-origin',
-    },
-    transportBatching: true,
-});
+const networkInterface = createMeteorNetworkInterface();
 
 const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
     networkInterface,
     wsClient,
 );
 
-const apolloClient = new ApolloClient({
-    ...meteorClientConfig(),
-    networkInterface: networkInterfaceWithSubscriptions,
-
-});
+const apolloClient = new ApolloClient(meteorClientConfig({networkInterface: networkInterfaceWithSubscriptions}));
 
 const funct = function(funct) {
     return funct;
