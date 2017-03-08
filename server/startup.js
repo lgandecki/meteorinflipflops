@@ -10,7 +10,13 @@ import ChannelRepository from './connectors/ChannelRepository';
 
 import { SubscriptionManager } from 'graphql-subscriptions';
 
+import { Accounts } from 'meteor/accounts-base';
 
+Accounts.onCreateUser((options, user) => {
+    const fb = user.services.facebook;
+    const handle = fb.first_name;
+    return Object.assign({}, user, { handle });
+});
 
 export const subscriptionManager = new SubscriptionManager({
     schema,

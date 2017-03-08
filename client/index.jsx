@@ -2,13 +2,16 @@ import React from 'react';
 import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 import routes from './components/Routes';
+import Account from './components/accounts/account.jsx';
 
 import ApolloClient, {createNetworkInterface} from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
+import {meteorClientConfig} from 'meteor/apollo';
 
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
 import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
+
 
 const wsClient = new SubscriptionClient('ws://localhost:8080');
 
@@ -27,6 +30,7 @@ const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
 );
 
 const apolloClient = new ApolloClient({
+    ...meteorClientConfig(),
     networkInterface: networkInterfaceWithSubscriptions,
 
 });
@@ -50,9 +54,9 @@ const store = createStore(
 Meteor.startup(() => {
     render(
         <ApolloProvider store={store} client={apolloClient}>
-        <div>
+        <Account>
             {routes}
-        </div>
+        </Account>
         </ApolloProvider>,
         document.getElementById('root'),
     );

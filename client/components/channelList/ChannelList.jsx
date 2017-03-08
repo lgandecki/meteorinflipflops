@@ -1,6 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
-import {Link} from 'react-router'
+import {Link} from 'react-router';
 
 import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';

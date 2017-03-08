@@ -15,10 +15,14 @@ const resolvers = {
     Mutation: {
         addMessage(_, {channelName, message, handle}, context) {
             const newMessage = context.Channels.post(channelName, message, handle);
+            const user = context.user;
+            console.log("Add message by", user);
             console.log("in add message");
-            pubsub.publish('messageAdded', newMessage);
-            console.log("after messaging");
-            return newMessage;
+            if(user){
+                pubsub.publish('messageAdded', newMessage);
+                console.log("after messaging");
+                return newMessage;
+            }
         },
         addChannel(_, {channelName}, context) {
             // Meteor._sleepForMs(5000);
