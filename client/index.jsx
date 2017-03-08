@@ -41,7 +41,7 @@ const store = createStore(
     }),
     {}, // initial state
     compose(
-        //applyMiddleware(apolloClient.middleware()),
+        applyMiddleware(apolloClient.middleware()),
         // If you are using the devToolsExtension, you can add it here also
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     )
