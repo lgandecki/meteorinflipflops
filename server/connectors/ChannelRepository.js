@@ -2,9 +2,11 @@ import { Channels } from '../collections';
 
 export default class ChannelRepository {
     getChannels() {
+        console.log("getChannels")
         return Channels.find().fetch();
     }
     getChannel(name) {
+        console.log("getChannel by ", name);
         return Channels.findOne({name});
     }
     createChannel(name) {

@@ -1,3 +1,10 @@
+import  resolvers  from '/server/api/resolvers';
+
+import {makeExecutableSchema} from 'graphql-tools';
+
+console.log("resolvers", resolvers);
+
+
 const gql = schema => schema;
 
 export const typeDefs = gql`
@@ -17,8 +24,21 @@ export const typeDefs = gql`
         addMessage(channelName: String!, message: String!, handle: String!): Message!
         addChannel(channelName: String!): Channel!
     }
-     schema {
-    query: Query
-    mutation: Mutation
-  }
+    type Subscription {
+        messageAdded(channelName: String!): Message
+    }
+    schema {
+        query: Query
+        mutation: Mutation
+        subscription: Subscription
+    }
 `;
+
+
+const schema = makeExecutableSchema({
+    typeDefs,
+    resolvers,
+});
+
+console.log("schema", schema);
+export default schema;

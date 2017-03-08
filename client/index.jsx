@@ -3,13 +3,33 @@ import { Meteor } from 'meteor/meteor';
 import { render } from 'react-dom';
 import routes from './components/Routes';
 
-import ApolloClient from 'apollo-client';
+import ApolloClient, {createNetworkInterface} from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 
+import { SubscriptionClient, addGraphQLSubscriptions } from 'subscriptions-transport-ws';
 
-const apolloClient = new ApolloClient();
+const wsClient = new SubscriptionClient('ws://localhost:8080');
+
+
+const networkInterface = createNetworkInterface({
+    uri: '/graphql',
+    opts: {
+        credentials: 'same-origin',
+    },
+    transportBatching: true,
+});
+
+const networkInterfaceWithSubscriptions = addGraphQLSubscriptions(
+    networkInterface,
+    wsClient,
+);
+
+const apolloClient = new ApolloClient({
+    networkInterface: networkInterfaceWithSubscriptions,
+
+});
 
 const store = createStore(
     combineReducers({
