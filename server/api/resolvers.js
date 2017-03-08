@@ -16,7 +16,7 @@ const resolvers = {
         addMessage(_, {channelName, message, handle}, context) {
             const newMessage = context.Channels.post(channelName, message, handle);
             console.log("in add message");
-            pubsub.publish('messageAdded', {name: channelName});
+            pubsub.publish('messageAdded', newMessage);
             console.log("after messaging");
             return newMessage;
         },

@@ -60,5 +60,6 @@ new SubscriptionServer(
         },
     }, {
         server: websocketServer,
+        path: '/'
     }
 );

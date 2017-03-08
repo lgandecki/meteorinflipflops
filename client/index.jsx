@@ -31,15 +31,19 @@ const apolloClient = new ApolloClient({
 
 });
 
+const funct = function(funct) {
+    return funct;
+}
+
 const store = createStore(
     combineReducers({
         apollo: apolloClient.reducer(),
     }),
     {}, // initial state
     compose(
-        applyMiddleware(apolloClient.middleware()),
         // If you are using the devToolsExtension, you can add it here also
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+        applyMiddleware(apolloClient.middleware()),
+        (window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()) || funct,
     )
 );
 
