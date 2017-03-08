@@ -19,7 +19,7 @@ export const subscriptionManager = new SubscriptionManager({
         messageAdded: (options, args) => ({
             messageAdded: message => {
                 console.log("setup ", options);
-                console.log("setup args", args);
+                // console.log("setup args", args);
                 console.log("setup message", message);
             }
         })
@@ -51,7 +51,7 @@ new SubscriptionServer(
         subscriptionManager,
 
         onSubscribe: (msg, params) => {
-
+            console.log("on subscribe", msg, params);
             return Object.assign({}, params, {
                 context: {
                     Channels: new ChannelRepository(),

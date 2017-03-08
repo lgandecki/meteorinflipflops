@@ -2,9 +2,6 @@ import  resolvers  from '/server/api/resolvers';
 
 import {makeExecutableSchema} from 'graphql-tools';
 
-console.log("resolvers", resolvers);
-
-
 const gql = schema => schema;
 
 export const typeDefs = gql`
@@ -40,5 +37,4 @@ const schema = makeExecutableSchema({
     resolvers,
 });
 
-console.log("schema", schema);
 export default schema;
